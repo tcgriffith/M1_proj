@@ -37,7 +37,7 @@ load("./rt.rda")
 ```{r}
 
 rt.fav10 =
-rt %>% filter( favorite_count>2000) %>% 
+rt %>% filter( favorite_count>500) %>% 
   filter(!grepl("news|M1GRANDPRIX|owarai_natalie",screen_name,ignore.case=TRUE)) %>% 
   arrange(desc(favorite_count))
 ```

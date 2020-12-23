@@ -1,0 +1,70 @@
+---
+title: "Untitled"
+author: "TC"
+date: "12/23/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(rtweet)
+library(dplyr)
+```
+
+## R Markdown
+
+```{css}
+
+img{
+  width: 400px;
+}
+```
+
+
+```{r eval=FALSE}
+rt <- search_tweets(
+  "M-1グランプリ", n = 18000,
+  include_rts = FALSE,retryonratelimit=TRUE
+)
+save(rt, file="./rt.rda")
+```
+
+```{r}
+load("./rt.rda")
+```
+
+
+```{r}
+
+rt.fav10 =
+rt %>% filter( favorite_count>2000) %>% 
+  filter(!grepl("news|M1GRANDPRIX|owarai_natalie",screen_name,ignore.case=TRUE)) %>% 
+  arrange(desc(favorite_count))
+```
+
+```{r echo=FALSE, results='asis'}
+tmp=
+sapply(1:nrow(rt.fav10), function(i){
+  text=rt.fav10$text[i]
+  name=rt.fav10$name[i]
+  fav =rt.fav10$favorite_count[i]
+  
+  mediaurl=rt.fav10$media_url[i][[1]]
+  
+  imgtext=""
+  if(!is.na(mediaurl)){
+    bn=basename(mediaurl)
+    if (!file.exists(paste0("./",bn))){
+      download.file(mediaurl,destfile=paste0("./",bn),method="auto")
+    }
+    imgtext=sprintf("![](%s)",bn)
+  }
+  
+  # tmptext= paste0("> ",text,"\n>              -",name,"\n\n")
+  tmptext=sprintf("### %s \n赞: %d\n\n%s\n```\n%s\n```\n\n",name,fav,imgtext,text)
+})
+
+writeLines(tmp)
+```
+
+

@@ -1,0 +1,59 @@
+---
+title: "COVIDed芸人"
+author: "含糖的小鸡"
+date: "1/9/2021"
+output: html_document
+---
+
+
+
+
+```{r echo=FALSE}
+library(timevis)
+library(kableExtra)
+corona_geinin=data.table::fread(
+"
+start content
+20210109 南海甜心(静)
+20210104 MIKI(昴生)
+20210108 三四郎(小宮)
+20210108 牛仔裤(高松)
+20201228 Westland(井口/河本)
+20201222 ザ・たっち
+20201220 花子(岡部、菊田)
+20201219 花子(秋山)
+20201214 祇園(木崎)
+20200802 ラニーノーズ(洲崎)
+20200805 レインボー(ジャンボたかおが)
+20200806 ラニーノーズ(山田)
+20200826 爆笑問題(田中)
+20200915 爱因斯坦(河井/稲田)
+20200919 牛奶男孩(内海)
+20201022 Comandante(安田)
+20201125 海原(はるか)
+20201126 グランジ(遠山)
+20200325 志村健
+20200404 森三中(黒沢)
+20200406 Goriken
+20200816 流れ星(ちゅうえい)
+"
+)
+knitr::kable(corona_geinin[order(corona_geinin$start,decreasing=TRUE)],format="html") %>% 
+  kable_paper("hover", full_width = F)
+```
+
+```{r fig.height=3,fig.width=7}
+library(ggplot2)
+library(dplyr)
+
+corona_geinin %>%
+  mutate(Date_of_COVID_report=as.Date(as.character(corona_geinin$start),format="%Y%m%d")) %>% 
+  ggplot( aes(x=Date_of_COVID_report))+
+  geom_density()+scale_x_date()
+```
+
+```{r echo=FALSE}
+
+timevis(corona_geinin,showZoom=FALSE)
+```
+

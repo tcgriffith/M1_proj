@@ -36,6 +36,11 @@ start content
 20200404 森三中(黒沢)
 20200406 Goriken
 20200816 流れ星(ちゅうえい)
+20201124 ワタリ119
+20200723 はなわ
+20200702 土居上野(上野聖和)
+20200815 軍団山本(遠藤章造/庄司智春/山本圭壱/じゃぴょん桑折)
+20200904 おぎやはぎ(矢作)
 "
 )
 knitr::kable(corona_geinin[order(corona_geinin$start,decreasing=TRUE)],format="html") %>% 
@@ -57,3 +62,8 @@ corona_geinin %>%
 timevis(corona_geinin,showZoom=FALSE)
 ```
 
+## Source
+
+- https://www.talentinsta.com/topics/corona.php
+
+- https://natalie.mu/search?query=%E3%82%B3%E3%83%AD%E3%83%8A%E3%80%80%E6%84%9F%E6%9F%93&g=owarai
